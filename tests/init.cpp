@@ -1,59 +1,29 @@
 #include <catch.hpp>
-#include <stack.hpp>
+#include <test.hpp>
 
-SCENARIO("stack init")
+SCENARIO("array init") 
 {
-	stack<int> st;
-	REQUIRE(st.count() == 0);
-}
-SCENARIO("stack init object" ) 
-{
-	stack<int> st1;
-
-	st1.push(1);
-	st1.push(2);
-	st1.push(3);
-	stack<int> st2(st1);
-	REQUIRE(st1.count() ==3 ); 
-	REQUIRE(st1.count() == st2.count());
+	array<int, 13> v1;
+	REQUIRE(v1.size() == 13);
+	REQUIRE(v1.empty() == false);
+	array<int, 0> v2;
+	REQUIRE(v1.size() == 0);
+	REQUIRE(v1.empty() == true);
 }
 
-SCENARIO("stack op=")
+SCENARIO("array at, back, front, data, operator[]")
 {
-	stack<int> st1;
-
-	st1.push(1);
-	st1.push(2);
-	st1.push(3);
-	stack<int> st2 = st1;
-	REQUIRE(st1.count() ==3 ); 
-	REQUIRE(st1.count() == st2.count() );
-}
-
-SCENARIO("stack push")
-{
-	stack<int> st;
-	REQUIRE(st.count() == 0);
-	st.push(6);
-	REQUIRE(st.count() == 1);
-	st.push(7);
-	REQUIRE(st.count() == 2);
-	st.push(78);
-	REQUIRE(st.count() == 3);
-}
-SCENARIO("pop") 
-{
-	stack<int> st;
-	st.push(1);
-	st.push(2);
-	st.push(3);
-	int val = st.pop();
-	REQUIRE(st.count() == 2);
-	REQUIRE(val == 3);
-	val = st.pop();
-	REQUIRE(st.count() == 1);
-	REQUIRE(val == 2);
-	val = st.pop();
-	REQUIRE(st.count() == 0);
-	REQUIRE(val == 1);
+	array<int, 2> v1{9,12};
+	int tmp = v1.at(0);
+	REQUIRE(tmp == 9);
+	REQUIRE(tmp == v1.front());
+	REQUIRE(tmp == *v1.data());
+	REQUIRE(tmp == *v1.begin());
+	tmp = v1.at(1);
+	REQUIRE(tmp == 12);
+	REQUIRE(tmp == v1.back());
+	REQUIRE(tmp == *(v1.data() + 1));
+	REQUIRE(tmp == *v1.end());
+	REQUIRE(v1[0] == 9);
+	REQUIRE(v1[1] == 12);
 }
